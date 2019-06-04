@@ -16,9 +16,12 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.HashSet;
+import java.util.Observable;
+import java.util.Observer;
 
 
-public class ShareSpirit extends JFrame {
+public class ShareSpirit extends JFrame implements Observer{
     private final int FRAME_WIDTH = 1000;
     private final int FRAME_HEIGHT = 1000;
     private final int PANEL_WIDTH = 800;
@@ -66,6 +69,8 @@ public class ShareSpirit extends JFrame {
     private JPanel inputPanel;
     private JScrollPane displayScollBar;
 
+    HashSet<String> info;
+
     public ShareSpirit(){
         //create frame
         super("Share Spirit");
@@ -75,6 +80,8 @@ public class ShareSpirit extends JFrame {
         setSize(FRAME_WIDTH,FRAME_HEIGHT);
 
         cp = new ControlPane();
+        info = new HashSet<>();
+        cp.setObserver(this);
 
         createWelcomePanel();
         createControlPanel();
@@ -90,6 +97,12 @@ public class ShareSpirit extends JFrame {
         CardLayout cl = (CardLayout) totalPanel.getLayout();
         cl.show(totalPanel,"welcome");
         setVisible(true);
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        String receiver = (String) arg;
+        info.add(receiver);
     }
 
     //get from google
@@ -352,11 +365,17 @@ public class ShareSpirit extends JFrame {
             this.warningMsgWelcomePanel.setText("There is no such user! Try again.");
         } else {
             initialControlPanel();
+            if(info.contains(userName)){
+                warningMsgControlPanel.setText("Welcome " + userName + "\nyou have message");
+                info.remove(userName);
+            }else {
+                warningMsgControlPanel.setText("Welcome " + userName);
+            }
             display.setText("");
             music("success.wav");
             CardLayout cl = (CardLayout) totalPanel.getLayout();
             cl.show(totalPanel, "control");
-            warningMsgControlPanel.setText("Welcome " + userName);
+            //warningMsgControlPanel.setText("Welcome " + userName);
         }
     }
 

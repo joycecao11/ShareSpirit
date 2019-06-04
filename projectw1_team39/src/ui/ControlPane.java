@@ -7,9 +7,7 @@ import exceptionTool.OutOfListException;
 import model.*;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 public class ControlPane{
 
@@ -28,6 +26,10 @@ public class ControlPane{
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void setObserver(ShareSpirit ss){
+        listOfAcc.setObserver(ss);
     }
 
     public String checkRequestBox() throws NoLoggedInUserException {
@@ -184,4 +186,5 @@ public class ControlPane{
     public void save() throws IOException {
         db.save();
     }
+
 }

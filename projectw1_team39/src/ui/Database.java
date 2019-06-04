@@ -61,9 +61,13 @@ public class Database implements Loadable, Saveable{
     }
 
     private void loadBook(){
-        for (String line : bookLines){
-            ArrayList<String> partsOfLine = splitOnSpace(line);
-            cp.getListOfBook().addNewBook(partsOfLine.get(0),partsOfLine.get(1),partsOfLine.get(2),Double.parseDouble(partsOfLine.get(3)),partsOfLine.get(4));
+        if(!bookLines.isEmpty()){
+            for (String line : bookLines){
+                ArrayList<String> partsOfLine = splitOnSpace(line);
+                cp.getListOfBook().addNewBook(partsOfLine.get(0),partsOfLine.get(1),partsOfLine.get(2),Double.parseDouble(partsOfLine.get(3)),partsOfLine.get(4));
+            }
+        }else{
+            //ArrayList<String> partsOfLine = splitOnSpace(line);
         }
     }
 

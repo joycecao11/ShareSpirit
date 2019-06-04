@@ -1,6 +1,7 @@
 package model;
 import abstractTool.MailingItem;
 import exceptionTool.OutOfListException;
+import ui.ShareSpirit;
 
 import java.util.*;
 
@@ -33,6 +34,11 @@ public class Account {
         this.userName = DEFAULT_SETTING;
         requestBox = new RequestBox();
         responseBox = new ResponseBox();
+    }
+
+    public void setObserver(ShareSpirit ss){
+        requestBox.setObserver(ss);
+        responseBox.setObserver(ss);
     }
 
     public boolean checkSame(String newEmail, String newPIN){

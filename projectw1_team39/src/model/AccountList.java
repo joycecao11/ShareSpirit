@@ -1,17 +1,23 @@
 package model;
 
+import ui.ShareSpirit;
+
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 
 public class AccountList {
     private HashMap<String,Account> listOfAccHash;
-    //private ArrayList<Account> listOfAcc;
+    private ArrayList<Account> listOfAcc;
 
     public AccountList(){
         listOfAccHash = new HashMap<>();
-        //listOfAcc = new ArrayList<>();
+        listOfAcc = new ArrayList<>();
+    }
+
+    public void setObserver(ShareSpirit ss){
+        for(Account a: listOfAcc){
+            a.setObserver(ss);
+        }
     }
 
     public ArrayList<Account> getAccountList(){
@@ -23,18 +29,13 @@ public class AccountList {
         Account temp = new Account(email, password);
         if(!listOfAccHash.containsKey(email)) {
             listOfAccHash.put(email, temp);
+            listOfAcc.add(temp);
             return true;
         }
         else{
             return false;
         }
-//        if(!listOfAcc.contains(temp)) {
-//            listOfAcc.add(temp);
-//            return true;
-//        }
-//        else{
-//            return false;
-//        }
+
     }
 
     public Account getAccount (String email, String password){

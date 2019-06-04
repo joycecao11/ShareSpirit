@@ -1,9 +1,12 @@
 package abstractTool;
 
+import ui.ShareSpirit;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
 
-public abstract class Mailbox {
+public abstract class Mailbox extends Observable {
 
     protected List<MailingItem> itemList;
 
@@ -27,5 +30,10 @@ public abstract class Mailbox {
     public void receive(MailingItem r){
         //this.hasNewMsg = true;
         itemList.add(r);
+        notifyObservers(r.getReceiver());
+    }
+
+    public void setObserver(ShareSpirit ss){
+        addObserver(ss);
     }
 }
